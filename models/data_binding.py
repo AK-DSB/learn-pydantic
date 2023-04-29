@@ -5,8 +5,9 @@ from xml.etree.ElementTree import fromstring
 
 
 xmlstring = """
-<User Id="2138">
-    <FirstName />
+<User Id="2138" Status="1">
+    <FirstName Value="AKW" />
+    <LastName Value="AKW" />
     <LoggedIn Value="true" />
 </User>
 """
@@ -15,7 +16,7 @@ xmlstring = """
 class UserGetter(GetterDict):
 
     def get(self, key: str, default: Any) -> Any:
-
+        print('key--->', key)
         if key in {'Id', 'Status'}:
             # element attributes
             return self._obj.attrib.get(key, default)
@@ -39,5 +40,6 @@ class User(BaseModel):
         getter_dict = UserGetter
 
 
+print(fromstring(xmlstring))
 user = User.from_orm(fromstring(xmlstring))
 print(user)
