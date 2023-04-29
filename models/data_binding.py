@@ -17,6 +17,7 @@ class UserGetter(GetterDict):
 
     def get(self, key: str, default: Any) -> Any:
         print('key--->', key)
+        print('default--->', default)
         if key in {'Id', 'Status'}:
             # element attributes
             return self._obj.attrib.get(key, default)
