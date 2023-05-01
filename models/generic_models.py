@@ -52,3 +52,37 @@ try:
     Response[int](data='value')
 except ValidationError as e:
     print(e)
+
+
+TypeX = TypeVar('TypeX')
+
+
+class BaseClass(GenericModel, Generic[TypeX]):
+    X: TypeX
+
+
+class ChildClass(BaseClass[TypeX], Generic[TypeX]):
+    # Inherit from Generic[TypeX]
+    pass
+
+
+# Replace TypeX by int
+print(ChildClass[int](X=1))
+
+
+TypeX = TypeVar('TypeX')
+TypeY = TypeVar('TypeY')
+TypeZ = TypeVar('TypeZ')
+
+
+class BaseClass(GenericModel, Generic[TypeX, TypeY]):
+    x: TypeX
+    y: TypeY
+
+
+class ChildClass(BaseClass[int, TypeY], Generic[TypeY, TypeZ]):
+    z: TypeZ
+
+
+# Replace TypeY by str
+print(ChildClass[str, int](x=1, y=2, z=3))
